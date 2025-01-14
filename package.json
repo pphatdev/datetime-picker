@@ -1,0 +1,27 @@
+{
+  "name": "datetime-picker",
+  "version": "0.1.1",
+  "main": "script.js",
+  "scripts": {
+    "start": "serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pphatdev/datetime-picker.git"
+  },
+  "keywords": [
+    "datetime-picker",
+    "vanillajs-datetime-picker",
+    "pphatdev"
+  ],
+  "author": "pphatdev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pphatdev/datetime-picker/issues"
+  },
+  "homepage": "https://github.com/pphatdev/datetime-picker#readme",
+  "description": "",
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
