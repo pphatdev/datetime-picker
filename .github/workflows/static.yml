@@ -35,6 +35,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run replace script
+        run: python replace.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
