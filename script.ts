@@ -1,18 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let currentDate = new Date();
-    const monthSelect = document.getElementById('month-select');
-    const yearSelect = document.getElementById('year-select');
-    const timeSelect = document.getElementById('time-select');
-    const calendarGrid = document.getElementById('calendar-grid');
-    const timeList = document.getElementById('time-list');
-    const selectedDateTime = document.querySelector('.selected-datetime');
-    const datetimeInput = document.getElementById('datetime-input');
-    const picker = document.getElementById('datetime-picker');
+    let currentDate: Date = new Date();
+    const monthSelect = document.getElementById('month-select') as HTMLSelectElement;
+    const yearSelect = document.getElementById('year-select') as HTMLSelectElement;
+    const timeSelect = document.getElementById('time-select') as HTMLSelectElement;
+    const calendarGrid = document.getElementById('calendar-grid') as HTMLDivElement;
+    const timeList = document.getElementById('time-list') as HTMLDivElement;
+    const selectedDateTime = document.querySelector('.selected-datetime') as HTMLDivElement;
+    const datetimeInput = document.getElementById('datetime-input') as HTMLInputElement;
+    const picker = document.getElementById('datetime-picker') as HTMLDivElement;
 
     // Initialize selectors
-    function initializeSelectors() {
+    function initializeSelectors(): void {
         // Months
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         monthSelect.innerHTML = months.map((month, index) =>
             `<option value="${index}" ${index === currentDate.getMonth() ? 'selected' : ''}>
                 ${month}
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ).join('');
 
         // Years (2020-2030)
-        const currentYear = currentDate.getFullYear();
+        const currentYear: number = currentDate.getFullYear();
         yearSelect.innerHTML = Array.from({ length: 11 }, (_, i) => currentYear - 5 + i)
             .map(year =>
                 `<option value="${year}" ${year === currentYear ? 'selected' : ''}>
@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
             ).join('');
 
         // Time slots (15-minute intervals)
-        const timeSlots = [];
+        const timeSlots: string[] = [];
         for (let hour = 0; hour < 24; hour++) {
             for (let minute = 0; minute < 60; minute += 15) {
-                const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                const timeString: string = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                 timeSlots.push(timeString);
             }
         }
@@ -45,24 +45,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Generate calendar grid
-    function generateCalendar() {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
-        const startingDay = firstDay.getDay();
+    function generateCalendar(): void {
+        const year: number = currentDate.getFullYear();
+        const month: number = currentDate.getMonth();
+        const firstDay: Date = new Date(year, month, 1);
+        const lastDay: Date = new Date(year, month + 1, 0);
+        const startingDay: number = firstDay.getDay();
 
-        // Previous month's days
-        const prevMonthDays = [];
-        const prevMonthLastDay = new Date(year, month, 0).getDate();
+        const prevMonthDays: string[] = [];
+        const prevMonthLastDay: number = new Date(year, month, 0).getDate();
         for (let i = prevMonthLastDay - startingDay + 1; i <= prevMonthLastDay; i++) {
             prevMonthDays.push(`<div class="calendar-day other-month">${i}</div>`);
         }
 
-        // Current month's days
-        const currentMonthDays = [];
+        const currentMonthDays: string[] = [];
         for (let i = 1; i <= lastDay.getDate(); i++) {
-            const isSelected = i === currentDate.getDate() &&
+            const isSelected: boolean = i === currentDate.getDate() &&
                 month === currentDate.getMonth() &&
                 year === currentDate.getFullYear();
             currentMonthDays.push(
@@ -72,9 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
             );
         }
 
-        // Next month's days
-        const totalDays = prevMonthDays.length + currentMonthDays.length;
-        const nextMonthDays = [];
+        const totalDays: number = prevMonthDays.length + currentMonthDays.length;
+        const nextMonthDays: string[] = [];
         for (let i = 1; i <= (42 - totalDays); i++) {
             nextMonthDays.push(`<div class="calendar-day other-month">${i}</div>`);
         }
@@ -82,9 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
         calendarGrid.innerHTML = [...prevMonthDays, ...currentMonthDays, ...nextMonthDays].join('');
     }
 
-    // Update selected datetime display
-    function updateSelectedDateTime() {
-        const options = {
+    function updateSelectedDateTime(): void {
+        const options: Intl.DateTimeFormatOptions = {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -92,60 +88,58 @@ document.addEventListener('DOMContentLoaded', function () {
             minute: '2-digit',
             hour12: false
         };
-        const formattedDate = currentDate.toLocaleDateString('en-US', options)
+        const formattedDate: string = currentDate.toLocaleDateString('en-US', options)
             .replace(',', 'th,');
         selectedDateTime.textContent = formattedDate;
         datetimeInput.value = formattedDate;
     }
 
-    // Toggle picker visibility
-    function togglePicker() {
+    function togglePicker(): void {
         picker.classList.toggle('active');
     }
 
-    // Close picker when clicking outside
-    function handleClickOutside(event) {
-        if (!picker.contains(event.target) && event.target !== datetimeInput) {
+    function handleClickOutside(event: MouseEvent): void {
+        if (!picker.contains(event.target as Node) && event.target !== datetimeInput) {
             picker.classList.remove('active');
         }
     }
 
     // Event Listeners
-    datetimeInput.addEventListener('click', (e) => {
+    datetimeInput.addEventListener('click', (e: MouseEvent) => {
         e.stopPropagation();
         togglePicker();
     });
 
     document.addEventListener('click', handleClickOutside);
 
-    monthSelect.addEventListener('change', (e) => {
-        currentDate.setMonth(parseInt(e.target.value));
+    monthSelect.addEventListener('change', (e: Event) => {
+        currentDate.setMonth(parseInt((e.target as HTMLSelectElement).value));
         generateCalendar();
         updateSelectedDateTime();
     });
 
-    yearSelect.addEventListener('change', (e) => {
-        currentDate.setFullYear(parseInt(e.target.value));
+    yearSelect.addEventListener('change', (e: Event) => {
+        currentDate.setFullYear(parseInt((e.target as HTMLSelectElement).value));
         generateCalendar();
         updateSelectedDateTime();
     });
 
-    calendarGrid.addEventListener('click', (e) => {
-        const day = e.target.closest('.calendar-day');
+    calendarGrid.addEventListener('click', (e: MouseEvent) => {
+        const day = (e.target as Element).closest('.calendar-day');
         if (day && !day.classList.contains('other-month')) {
             document.querySelector('.calendar-day.selected')?.classList.remove('selected');
             day.classList.add('selected');
-            currentDate.setDate(parseInt(day.dataset.date));
+            currentDate.setDate(parseInt(day.getAttribute('data-date') || '1'));
             updateSelectedDateTime();
         }
     });
 
-    timeList.addEventListener('click', (e) => {
-        const timeOption = e.target.closest('.time-option');
+    timeList.addEventListener('click', (e: MouseEvent) => {
+        const timeOption = (e.target as Element).closest('.time-option');
         if (timeOption) {
             document.querySelector('.time-option.selected')?.classList.remove('selected');
             timeOption.classList.add('selected');
-            const [hours, minutes] = timeOption.dataset.time.split(':');
+            const [hours, minutes] = (timeOption.getAttribute('data-time') || '00:00').split(':');
             currentDate.setHours(parseInt(hours));
             currentDate.setMinutes(parseInt(minutes));
             updateSelectedDateTime();
@@ -157,4 +151,3 @@ document.addEventListener('DOMContentLoaded', function () {
     generateCalendar();
     updateSelectedDateTime();
 });
-
