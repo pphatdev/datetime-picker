@@ -1,9 +1,11 @@
 {
   "name": "datetime-picker",
   "version": "0.1.1",
-  "main": "script.js",
+  "type": "module",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "serve ."
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,9 @@
   "homepage": "https://github.com/pphatdev/datetime-picker#readme",
   "description": "",
   "dependencies": {
-    "serve": "^14.2.4"
+    "parcel": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
   }
 }

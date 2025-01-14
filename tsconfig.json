@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "strict": true,
+        "module": "ESNext",
+        // "jsx": "preserve",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "lib": [
+            "es6",
+            "es2017",
+            "dom"
+        ],
+        "rootDir": ".",
+        "moduleResolution": "node",
+        "outDir": "./build"
+    }
+}
