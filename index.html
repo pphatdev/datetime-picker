@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown DateTime Picker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-wrapper">
+            <input type="text" id="datetime-input" class="datetime-input" placeholder="Select date and time" readonly>
+            <div class="datetime-picker" id="datetime-picker">
+                <div class="picker-header">
+                    <span class="header-text">Datetime</span>
+                    <div class="selected-datetime">July 25th, 2024, 05:00</div>
+                </div>
+                <div class="picker-content">
+                    <div class="selectors">
+                        <div class="select-wrapper">
+                            <select id="month-select" class="custom-select">
+                                <option value="6">July</option>
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="year-select" class="custom-select">
+                                <option value="2024">2024</option>
+                            </select>
+                        </div>
+                        <div class="select-wrapper">
+                            <select id="time-select" class="custom-select">
+                                <option value="05:00">05:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="calendar-container">
+                        <div class="calendar">
+                            <div class="calendar-header">
+                                <div>Su</div>
+                                <div>Mo</div>
+                                <div>Tu</div>
+                                <div>We</div>
+                                <div>Th</div>
+                                <div>Fr</div>
+                                <div>Sa</div>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid">
+                            </div>
+                        </div>
+                        <div class="time-list" id="time-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
