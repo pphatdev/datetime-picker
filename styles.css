@@ -5,6 +5,14 @@
     --hover-bg: #f1f5f9;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
+
+}
+
+* {
+    font-family: "Inter", serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
 }
 
 body {
